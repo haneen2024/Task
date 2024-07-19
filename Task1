@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .product {
+            border: 3px solid red; 
+            padding: 8px;
+            margin: 8px;
+        }
+        .product h2 {
+            color: green; 
+        }
+        .product p {
+            color: green;
+        }
+        .product Price {
+            color: orange; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Product List</h1>
+    <div id="productlist"></div>
+   
+</body>
+</html>
+ <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('https://dummyjson.com/products')
+                .then(response => response.json())
+                .then(data => {
+                    const productList = document.getElementById('productlist');
+                    data.products.forEach(product => {
+                        const productDiv = document.createElement('div');
+                        productDiv.className = 'product';
+                        productDiv.innerHTML = `
+                            <h2>${product.title}</h2>
+                            <p>${product.description}</p>
+                            <p><Price>Price:</Price $${product.price}</p>
+                        `;
+                        productList.appendChild(productDiv);
+                    });
+                })
+                .catch(error => console.error('Error fetching product data:', error));
+        });
+    </script>
