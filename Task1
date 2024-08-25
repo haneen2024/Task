@@ -7,42 +7,65 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
         }
         .product {
-            border: 3px solid red; 
-            padding: 8px;
-            margin: 8px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 16px;
+            margin: 12px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
         }
         .product h2 {
-            color: green; 
-        }
-        .product p {
+            font-size: 16px;
             color: green;
         }
-        .product Price {
-            color: orange; 
+        .product p {
+            font-size: 14px;
+            color: green;
+            margin: 8px 0;
+        }
+        .product .price {
+            font-size: 18px;
+            color: orange;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Product List</h1>
-    <div id="productlist"></div>
-   
-</body>
-</html>
- <script>
+    <h1 style="text-align: center;">Product List</h1>
+    <div class="container" id="productlist"></div>
+
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('https://dummyjson.com/products')
+            fetch('https://fakestoreapi.com/products')
                 .then(response => response.json())
                 .then(data => {
                     const productList = document.getElementById('productlist');
-                    data.products.forEach(product => {
+                    data.forEach(product => {
                         const productDiv = document.createElement('div');
                         productDiv.className = 'product';
                         productDiv.innerHTML = `
+                            <img src="${product.image}" alt="${product.title}">
                             <h2>${product.title}</h2>
                             <p>${product.description}</p>
-                            <p><Price>Price:</Price $${product.price}</p>
+                            <p class="price">$${product.price}</p>
                         `;
                         productList.appendChild(productDiv);
                     });
@@ -50,3 +73,5 @@
                 .catch(error => console.error('Error fetching product data:', error));
         });
     </script>
+</body>
+</html>
